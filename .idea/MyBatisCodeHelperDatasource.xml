@@ -3,9 +3,10 @@
   <component name="MyBatisCodeHelperDatasource">
     <option name="projectProfile">
       <ProjectProfile>
-        <option name="javaMapperPackage" value="com.achievement.mapper" />
+        <option name="generateService" value="true" />
+        <option name="javaMapperPackage" value="com.sport.mapper" />
         <option name="javaMapperPath" value="$PROJECT_DIR$/src/main/java" />
-        <option name="javaModelPackage" value="com.achievement.entity" />
+        <option name="javaModelPackage" value="com.sport.entity" />
         <option name="javaModelPath" value="$PROJECT_DIR$/src/main/java" />
         <option name="lastDatabaseCrudChooseModuleName" value="sport" />
         <option name="lombokDataAnnotation" value="true" />
@@ -14,11 +15,11 @@
             <entry key="sport">
               <value>
                 <UserPackageAndPathInfoByModule>
-                  <option name="javaMapperPackage" value="com.achievement.mapper" />
+                  <option name="javaMapperPackage" value="com.sport.mapper" />
                   <option name="javaMapperPath" value="$PROJECT_DIR$/src/main/java" />
-                  <option name="javaModelPacakge" value="com.achievement.entity" />
+                  <option name="javaModelPacakge" value="com.sport.entity" />
                   <option name="javaModelPath" value="$PROJECT_DIR$/src/main/java" />
-                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/src/main/java" />
+                  <option name="javaServicePackage" value="com.sport.service" />
                   <option name="javaServicePath" value="$PROJECT_DIR$/src/main/java" />
                   <option name="xmlPackage" value="mapper" />
                   <option name="xmlPath" value="$PROJECT_DIR$/src/main/resources" />
@@ -34,6 +35,18 @@
                 <TableGenerateConfig>
                   <option name="generatedKey" value="" />
                   <option name="javaModelName" value="Gradle" />
+                  <option name="moduleName" value="sport" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="sport:type">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="Type" />
                   <option name="moduleName" value="sport" />
                   <option name="sequenceColumn" value="" />
                   <option name="sequenceId" value="" />
