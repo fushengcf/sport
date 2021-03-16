@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -50,4 +53,12 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
         return new MyInterceptor();
     }
 
+
+//    @ControllerAdvice
+//    public class MyExceptionHandler {
+//        @ExceptionHandler(value =Exception.class)
+//        public Result exceptionHandler(Exception e){
+//            return  new Result(true, StatusCode.ERROR,"系统错误请联系管理员", "");
+//        }
+//    }
 }

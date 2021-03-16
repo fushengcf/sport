@@ -54,6 +54,18 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="sport:venue">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="Venue" />
+                  <option name="moduleName" value="sport" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
           </map>
         </option>
         <option name="useSwagger" value="true" />

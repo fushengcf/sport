@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Api(tags = "管理员")
+@Api(tags = "用户")
 @ApiSupport(order = 1)
 @RestController
 @RequestMapping("/teacher")
@@ -74,7 +74,7 @@ public class TeacherController {
     public Result login(@RequestParam(value = "name",required = true) String name,@RequestParam(value = "password",required = true) String password)  {
         Teacher teacher = teacherService.validateUser(name,password);
             if (teacher !=null){
-                            String jwt = JwtUtil.generateToken(teacher);
+                            String jwt = JwtUtil.generateTeachertToken(teacher);
             return new Result(true, StatusCode.OK, "登录成功", jwt);
             }
                 return new Result(true, StatusCode.ERROR, "账号或密码错误",null);
