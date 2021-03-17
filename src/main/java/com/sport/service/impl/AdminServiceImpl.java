@@ -30,8 +30,10 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Override
     public UserDTO validateAdmin(String phone, String password){
-        UserDTO userDTO = baseMapper.selectOne(new QueryWrapper<userDTO>().like(!StringUtils.isEmpty(phone), Admin.PHONE, phone));
-        if ( userDTO.getPassword().equals(password)){
+
+
+        Admin admin = baseMapper.selectOne(new QueryWrapper<admin>().like(!StringUtils.isEmpty(phone), Admin.PHONE, phone));
+        if ( admin.getPassword().equals(password)){
                 return userDTO;
         }
         return  null;

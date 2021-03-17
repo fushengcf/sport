@@ -1,6 +1,7 @@
 package com.sport.config;
 
 import com.sport.entity.Admin;
+import com.sport.entity.Result.UserDTO;
 import com.sport.entity.Teacher;
 import com.sport.service.TeacherService;
 import io.jsonwebtoken.Jwts;
@@ -24,10 +25,10 @@ public class JwtUtil {
                 .compact();
         return "Bearer "+jwt; //jwt前面一般都会加Bearer
     }
-    public static String generateAdmintToken(Admin admin) {
+    public static String generateAdmintToken(UserDTO userDTO) {
         HashMap<String, Object> map = new HashMap<>();
         //you can put any data in the map
-        map.put("id", admin.getId());
+        map.put("id", userDTO.getId());
         String jwt = Jwts.builder()
                 .setClaims(map)
                 .setExpiration(new Date(System.currentTimeMillis() + 3600_000_000L))// 1000 hour
