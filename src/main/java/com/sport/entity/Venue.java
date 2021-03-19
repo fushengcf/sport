@@ -23,6 +23,7 @@ public class Venue {
     private String lng;
     private String phone;
     private String address;
+    private String password;
     @TableField(fill = INSERT)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;

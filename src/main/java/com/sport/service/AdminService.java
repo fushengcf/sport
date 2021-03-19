@@ -12,5 +12,5 @@ public interface AdminService extends IService<Admin> {
     public Admin getAdminById(String id);
 
 
-    public UserDTO validateAdmin(String phone, String password);
+    public Admin validateAdmin(String phone, String password);
 }

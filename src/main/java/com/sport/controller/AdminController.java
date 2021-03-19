@@ -1,15 +1,11 @@
 package com.sport.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sport.config.JwtUtil;
 import com.sport.config.Result;
 import com.sport.config.StatusCode;
 import com.sport.entity.Admin;
-import com.sport.entity.Major;
-import com.sport.entity.Result.UserDTO;
 import com.sport.service.AdminService;
-import com.sport.service.MajorService;
 import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,9 +31,9 @@ public class AdminController {
     })
     @PostMapping(value = "/login" )
     public Result login(@RequestParam(value = "phone",required = true) String phone,@RequestParam(value = "password",required = true) String password)  {
-        UserDTO userDTO = adminService.validateAdmin(phone,password);
-        if (userDTO !=null){
-            String jwt = JwtUtil.generateAdmintToken(userDTO);
+        Admin admin = adminService.validateAdmin(phone,password);
+        if (admin !=null){
+            String jwt = JwtUtil.generateAdminToken(admin);
             return new Result(true, StatusCode.OK, "登录成功", jwt);
         }
         return new Result(true, StatusCode.ERROR, "账号或密码错误",null);

@@ -1,43 +1,21 @@
 package com.sport.service;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.sport.mapper.VenueMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.sport.entity.Admin;
 import com.sport.entity.Venue;
+import org.springframework.stereotype.Service;
+
 @Service
-public class VenueService{
+public interface VenueService extends IService<Venue> {
 
-    @Resource
-    private VenueMapper venueMapper;
+    public void createVenue(Venue venue);
+    public void updateVenue(Venue venue);
+    public Venue getVenueById(String id);
+    public void deleteVenueById(String id);
+    IPage<Venue> selectMyPage(Integer page, Integer size, String name);
 
-    
-    public int deleteByPrimaryKey(String id) {
-        return venueMapper.deleteByPrimaryKey(id);
-    }
 
-    
-    public int insert(Venue record) {
-        return venueMapper.insert(record);
-    }
-
-    
-    public int insertSelective(Venue record) {
-        return venueMapper.insertSelective(record);
-    }
-
-    
-    public Venue selectByPrimaryKey(String id) {
-        return venueMapper.selectByPrimaryKey(id);
-    }
-
-    
-    public int updateByPrimaryKeySelective(Venue record) {
-        return venueMapper.updateByPrimaryKeySelective(record);
-    }
-
-    
-    public int updateByPrimaryKey(Venue record) {
-        return venueMapper.updateByPrimaryKey(record);
-    }
-
+    public Venue validateVenue(String phone, String password);
+//    List<SelectDTO> getAllVenue();
 }

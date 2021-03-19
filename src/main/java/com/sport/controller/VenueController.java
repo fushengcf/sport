@@ -1,12 +1,13 @@
 package com.sport.controller;
 
-import com.sport.entity.Teacher;
-import com.sport.service.TeacherService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sport.config.JwtUtil;
 import com.sport.config.Result;
 import com.sport.config.StatusCode;
-import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+import com.sport.entity.Venue;
+import com.sport.entity.Venue;
+import com.sport.service.VenueService;
 import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -17,67 +18,64 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Api(tags = "用户")
-@ApiSupport(order = 1)
+@Api(tags = "场馆")
+@ApiSupport(order = 4)
 @RestController
-@RequestMapping("/teacher")
-public class TeacherController {
+@RequestMapping("/venue")
+public class VenueController {
     @Autowired
-    private TeacherService teacherService;
+    private VenueService venueService;
     static final String SECRET = "ThisIsASecret";
+
     @ApiImplicitParam(name = "name",value = "姓名",required = false)
     @ApiOperation(value = "分页列表")
     @GetMapping(value = "/list")
 //    @TokenCheck
     public Result getInfoListSQL(Integer page, Integer size, @RequestParam(value = "name",required = false) String name){
-        System.out.println(name);
-        IPage<Teacher> data = teacherService.selectMyPage(page,size,name);
+        IPage<Venue> data = venueService.selectMyPage(page,size,name);
         return  new Result(true, StatusCode.OK,"查询成功",data);
     }
-    @ApiOperation(value = "新增管理员")
+    @ApiOperation(value = "新增场馆")
     @PostMapping(value = "/add")
-    public Result createUser(@RequestBody Teacher teacher) {
-        teacher.setPassword("123456");
-        teacherService.createTeacher(teacher);
-        return  new Result(true, StatusCode.OK,"新增成功", teacher);
+    public Result createVenue(@RequestBody Venue venue) {
+        venueService.createVenue(venue);
+        return  new Result(true, StatusCode.OK,"新增成功",venue);
     }
 
-    @ApiOperation(value = "修改管理员")
+    @ApiOperation(value = "修改场馆")
     @PutMapping(value = "/update")
-    public Result updateUser(@RequestBody Teacher teacher) {
-        teacherService.updateTeacher(teacher);
-        return  new Result(true, StatusCode.OK,"修改成功", teacher);
+    public Result updateVenue(@RequestBody Venue venue) {
+        venueService.updateVenue(venue);
+        return  new Result(true, StatusCode.OK,"修改成功",venue);
     }
 
-    @ApiOperation(value = "管理员详情")
+    @ApiOperation(value = "场馆详情")
     @GetMapping(value = "/detail/{id}")
-    public Result getUserById(@PathVariable("id") String id) {
-        Teacher teacher =  teacherService.getTeacherById(id);
-        teacher.setPassword("");
-        return  new Result(true, StatusCode.OK,"详情成功", teacher);
+    public Result getVenueById(@PathVariable("id") String id) {
+        Venue venue =  venueService.getVenueById(id);
+        return  new Result(true, StatusCode.OK,"详情成功",venue);
     }
 
-    @ApiOperation(value = "删除管理员")
+    @ApiOperation(value = "删除场馆")
     @DeleteMapping(value = "/delete/{id}")
-    public Result deleteUserById(@PathVariable("id") String id) {
+    public Result deleteVenueById(@PathVariable("id") String id) {
 
-        teacherService.deleteTeacherById(id);
+        venueService.deleteVenueById(id);
         return  new Result(true, StatusCode.OK,"删除成功","");
     }
-
     @ApiOperation(value = "登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name",value = "姓名",required = true),
+            @ApiImplicitParam(name = "phone",value = "电话号码",required = true),
             @ApiImplicitParam(name = "password",value = "密码",required = true)
     })
     @PostMapping(value = "/login" )
-    public Result login(@RequestParam(value = "name",required = true) String name,@RequestParam(value = "password",required = true) String password)  {
-        Teacher teacher = teacherService.validateUser(name,password);
-            if (teacher !=null){
-                            String jwt = JwtUtil.generateTeachertToken(teacher);
+    public Result login(@RequestParam(value = "phone",required = true) String phone,@RequestParam(value = "password",required = true) String password)  {
+        Venue venue = venueService.validateVenue(phone,password);
+        if (venue !=null){
+            String jwt = JwtUtil.generateVenueToken(venue);
             return new Result(true, StatusCode.OK, "登录成功", jwt);
-            }
-                return new Result(true, StatusCode.ERROR, "账号或密码错误",null);
+        }
+        return new Result(true, StatusCode.ERROR, "账号或密码错误",null);
     }
 
     @ApiOperation(value = "用户信息")
@@ -91,7 +89,7 @@ public class TeacherController {
                 .getBody();
 
         String id = body.get("id").toString();
-        Teacher teacher = teacherService.getTeacherById(id);
+        Venue venue = venueService.getVenueById(id);
         Integer time = Integer.parseInt(body.get("exp").toString())*1000;
         System.out.println(id);
         System.out.println(System.currentTimeMillis()/1000+",,,,"+body.get("exp"));
@@ -99,9 +97,15 @@ public class TeacherController {
             return new Result(true, StatusCode.ERROR, "token过期",null);
         }
 
-        if(teacher ==null){
+        if(venue ==null){
             return new Result(true, StatusCode.ERROR, "token无效",null);
         }
-        return new Result(true, StatusCode.OK, "获取成功", teacher);
+        return new Result(true, StatusCode.OK, "获取成功", venue);
     }
+//    @ApiOperation(value = "所有场馆")
+//    @GetMapping(value = "/allVenue")
+//    public Result getAll(){
+//        List<SelectDTO> data = venueService.getAllVenue();
+//        return  new Result(true, StatusCode.OK,"查询成功",data);
+//    }
 }

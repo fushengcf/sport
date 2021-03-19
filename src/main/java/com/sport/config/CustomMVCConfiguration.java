@@ -38,20 +38,7 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
         configurer.favorPathExtension(false);
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/ums-member/login")
-                .excludePathPatterns("/ums-member/reg")
-                .excludePathPatterns("/code/**");
-    }
 
-
-    @Bean
-    public HandlerInterceptor authInterceptor(){
-        return new MyInterceptor();
-    }
 
 
 //    @ControllerAdvice
