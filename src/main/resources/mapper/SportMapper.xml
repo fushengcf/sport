@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sport.mapper.SportMapper">
+    <select id="selectSport" resultType="com.sport.entity.Result.SportDTO">
+        SELECT s.id,
+               s.name,
+               s.create_time,
+               s.price,
+               s.status,
+               v.name venue,
+               t.name type
+        FROM sport s
+                     LEFT JOIN venue v ON s.venue_id = v.id
+                     LEFT JOIN type t ON s.type_id = t.id
+
+                WHERE 1 = 1
+        <if test="name != null and name != ''">
+            and s.name like CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+
+        <if test="venueId != null">
+            and s.venue_id = CONCAT(#{venueId})
+        </if>
+        <if test="typeId != null and typeId != ''">
+            and s.type_id = CONCAT(#{typeId})
+        </if>
+        <if test="status != null">
+            and s.status = CONCAT(#{status})
+        </if>
+    </select>
+    <select id="selectAllSport" resultType="com.sport.entity.Result.SelectDTO">
+        SELECT id, name,status
+        from sport
+                where 1 = 1
+        <if test="venueId != null">
+            and venue_id = CONCAT(#{venueId})
+        </if>
+        <if test="typeId != null and typeId != ''">
+            and type_id = CONCAT(#{typeId})
+        </if>
+    </select>
 </mapper>

@@ -52,14 +52,12 @@ public class AdminController {
         String id = body.get("id").toString();
         Admin admin = adminService.getAdminById(id);
         Integer time = Integer.parseInt(body.get("exp").toString())*1000;
-        System.out.println(id);
-        System.out.println(System.currentTimeMillis()/1000+",,,,"+body.get("exp"));
         if (System.currentTimeMillis()/1000>Integer.parseInt(body.get("exp").toString())){
-            return new Result(true, StatusCode.ERROR, "token过期",null);
+            return new Result(true, StatusCode.LOGINERROR, "token过期",null);
         }
 
         if(admin ==null){
-            return new Result(true, StatusCode.ERROR, "token无效",null);
+            return new Result(true, StatusCode.LOGINERROR, "token无效",null);
         }
         return new Result(true, StatusCode.OK, "获取成功", admin);
     }

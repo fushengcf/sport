@@ -1,7 +1,7 @@
 spring:
   datasource:
-#    url: jdbc:mysql://119.45.15.68:3306/sport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-    url: jdbc:mysql://127.0.0.1:3306/sport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://119.45.15.68:3306/sport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+#    url: jdbc:mysql://127.0.0.1:3306/sport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 195230zhx
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,7 +23,7 @@ spring:
       connection-timeout: 30000
   mvc:
     throw-exception-if-no-handler-found: true
-1`logging:
+logging:
   level:
     com.dorm: debug
     com.dorm.mapper: trace

@@ -43,7 +43,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("宿舍管理接口")
+        return new ApiInfoBuilder().title("运动场地管理系统")
                 .contact(new Contact("fushengcf", "", "1726744044@qq.com"))
                 .description("Knife4j接口")
                 .license("The Apache License, Version 2.0")

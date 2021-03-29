@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sport.mapper.SubscribeMapper">
+    <select id="selectAllSubscribe" resultType="com.sport.entity.Result.SubscribeDTO">
+        SELECT id, start_time, finish_time
+        from subscribe
+                where 1 = 1
+        <if test="id != null and id != ''">
+            and id != CONCAT(#{id})
+        </if>
+        and sport_id = CONCAT(#{sportId})
+        and substring(start_time
+          , 1
+          , 10) = CONCAT(#{startTime})
+    </select>
+
+       <select id="selectSubscribe" resultType="com.sport.entity.Result.SubscribePageDTO">
+        SELECT s.id,
+               s.username,
+               s.create_time,
+               s.price,
+               v.name venue,
+               t.name type,
+               sp.name sport,
+               s.start_time,
+               s.finish_time,
+               s.date,
+               s.phone
+        FROM subscribe s
+                     LEFT JOIN venue v ON s.venue_id = v.id
+                     LEFT JOIN type t ON s.type_id = t.id
+                     LEFT JOIN sport sp ON s.sport_id = sp.id
+
+                WHERE 1 = 1
+        <if test="name != null and name != ''">
+            and s.username like CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+
+        <if test="venueId != null">
+            and s.venue_id = CONCAT(#{venueId})
+        </if>
+        <if test="typeId != null and typeId != ''">
+            and s.type_id = CONCAT(#{typeId})
+        </if>
+        <if test="sportId != null and sportId != ''">
+            and s.sportId = CONCAT(#{sportId})
+        </if>
+    </select>
+</mapper>

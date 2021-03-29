@@ -1,7 +1,6 @@
 package com.sport.config;
 
 import com.sport.entity.Admin;
-import com.sport.entity.Result.UserDTO;
 import com.sport.entity.Venue;
 import com.sport.service.VenueService;
 import io.jsonwebtoken.Jwts;

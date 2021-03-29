@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sport.entity.Admin;
+import com.sport.entity.Result.SelectDTO;
 import com.sport.entity.Venue;
 import com.sport.mapper.VenueMapper;
 import com.sport.service.TypeService;
@@ -12,6 +13,8 @@ import com.sport.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Service
 public class VenueServiceImpl extends ServiceImpl<VenueMapper, Venue>implements VenueService {
@@ -68,5 +71,12 @@ public class VenueServiceImpl extends ServiceImpl<VenueMapper, Venue>implements 
         }
         return  null;
 
+    }
+
+
+    @Override
+    public List<SelectDTO> getAllVenue() {
+        List<SelectDTO> selectDTO =  venueMapper.selectAllVenue();
+        return selectDTO;
     }
 }

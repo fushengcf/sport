@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sport.entity.Result.SelectDTO;
 import com.sport.entity.Type;
 import com.sport.mapper.TypeMapper;
 import com.sport.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Service
 public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
@@ -47,9 +50,10 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
         IPage<Type> typeIPage = baseMapper.selectPage(new Page<Type>(page,size),new QueryWrapper<Type>().like(!StringUtils.isEmpty(name), Type.NAME, name));
         return typeIPage;
     }
-//    @Override
-//    public List<SelectDTO> getAllType() {
-//        List<SelectDTO> selectDTO =  typeMapper.selectAll();
-//        return selectDTO;
-//    }
+
+    @Override
+    public List<SelectDTO> getAllType() {
+        List<SelectDTO> selectDTO =  typeMapper.selectAllType();
+        return selectDTO;
+    }
 }

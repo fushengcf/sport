@@ -3,8 +3,11 @@ package com.sport.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sport.entity.Admin;
+import com.sport.entity.Result.SelectDTO;
 import com.sport.entity.Venue;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface VenueService extends IService<Venue> {
@@ -17,5 +20,5 @@ public interface VenueService extends IService<Venue> {
 
 
     public Venue validateVenue(String phone, String password);
-//    List<SelectDTO> getAllVenue();
+    List<SelectDTO> getAllVenue();
 }

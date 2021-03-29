@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sport.config.Result;
 import com.sport.config.StatusCode;
+import com.sport.entity.Result.SelectDTO;
 import com.sport.entity.Type;
 import com.sport.service.TypeService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags = "类型")
 @ApiSupport(order = 4)
@@ -56,10 +59,10 @@ public class TypeController {
         return  new Result(true, StatusCode.OK,"删除成功","");
     }
 
-//    @ApiOperation(value = "所有类型")
-//    @GetMapping(value = "/allType")
-//    public Result getAll(){
-//        List<SelectDTO> data = typeService.getAllType();
-//        return  new Result(true, StatusCode.OK,"查询成功",data);
-//    }
+    @ApiOperation(value = "所有类型")
+    @GetMapping(value = "/allType")
+    public Result getAll(){
+        List<SelectDTO> data = typeService.getAllType();
+        return  new Result(true, StatusCode.OK,"查询成功",data);
+    }
 }

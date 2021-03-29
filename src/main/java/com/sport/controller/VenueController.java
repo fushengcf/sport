@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.sport.config.JwtUtil;
 import com.sport.config.Result;
 import com.sport.config.StatusCode;
+import com.sport.entity.Result.SelectDTO;
 import com.sport.entity.Venue;
 import com.sport.entity.Venue;
 import com.sport.service.VenueService;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(tags = "场馆")
@@ -38,6 +40,7 @@ public class VenueController {
     @ApiOperation(value = "新增场馆")
     @PostMapping(value = "/add")
     public Result createVenue(@RequestBody Venue venue) {
+        venue.setPassword("123456");
         venueService.createVenue(venue);
         return  new Result(true, StatusCode.OK,"新增成功",venue);
     }
@@ -91,21 +94,40 @@ public class VenueController {
         String id = body.get("id").toString();
         Venue venue = venueService.getVenueById(id);
         Integer time = Integer.parseInt(body.get("exp").toString())*1000;
-        System.out.println(id);
-        System.out.println(System.currentTimeMillis()/1000+",,,,"+body.get("exp"));
         if (System.currentTimeMillis()/1000>Integer.parseInt(body.get("exp").toString())){
-            return new Result(true, StatusCode.ERROR, "token过期",null);
+            return new Result(true, StatusCode.LOGINERROR, "token过期",null);
         }
 
         if(venue ==null){
-            return new Result(true, StatusCode.ERROR, "token无效",null);
+            return new Result(true, StatusCode.LOGINERROR, "token无效",null);
         }
         return new Result(true, StatusCode.OK, "获取成功", venue);
     }
-//    @ApiOperation(value = "所有场馆")
-//    @GetMapping(value = "/allVenue")
-//    public Result getAll(){
-//        List<SelectDTO> data = venueService.getAllVenue();
-//        return  new Result(true, StatusCode.OK,"查询成功",data);
+
+
+    @ApiOperation(value = "重置密码")
+    @GetMapping(value = "/reset/{id}")
+    public Result resetPw(@PathVariable("id") String id) {
+        Venue venue =  venueService.getVenueById(id);
+        venue.setPassword("123456");
+        venueService.updateVenue(venue);
+        return  new Result(true, StatusCode.OK,"修改成功","");
+    }
+
+
+//    @ApiOperation(value = "修改密码")
+//    @GetMapping(value = "/updatePw/{id}")
+//    public Result updatePw() {
+//        Venue venue =  venueService.getVenueById(id);
+//        venue.setPassword("123456");
+//        venueService.updateVenue(venue);
+//        return  new Result(true, StatusCode.OK,"修改成功","");
 //    }
+
+    @ApiOperation(value = "所有场馆")
+    @GetMapping(value = "/allVenue")
+    public Result getAll(){
+        List<SelectDTO> data = venueService.getAllVenue();
+        return  new Result(true, StatusCode.OK,"查询成功",data);
+    }
 }
